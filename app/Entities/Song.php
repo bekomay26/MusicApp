@@ -20,15 +20,23 @@ class Song extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = ['name', 'description', 'image_url', 'song_path', 'genre_id', 'album_id'];
 
     public $rules = [
         'name'            => 'required|string',
         'description'     => 'required|string',
-        'image'           => 'string',
-        'album_id' => 'required|exists:adapter_types,id',
-        'artist_id' => 'required|exists:adapter_types,id'
+        'image_url'       => 'string',
+        'song_path'       => 'string',
+        'genre_id' => 'required|exists:genres,id',
+        'album_id' => 'nullable|exists:albums,id',
+        // 'artist_id' => 'required|exists:users,id'
     ];
 
     protected $casts = ['adapter_type_id' => 'integer'];
+
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }
