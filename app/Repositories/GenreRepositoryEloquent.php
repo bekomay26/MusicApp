@@ -13,7 +13,7 @@ use App\Validators\GenreValidator;
  *
  * @package namespace App\Repositories;
  */
-class GenreRepositoryEloquent extends BaseRepository implements GenreRepository
+final class GenreRepositoryEloquent extends BaseRepository implements GenreRepository
 {
     /**
      * Specify Model class name

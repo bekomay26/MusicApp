@@ -11,7 +11,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Subscription extends Model implements Transformable
+final class Subscription extends Model implements Transformable
 {
     use TransformableTrait;
 

@@ -13,7 +13,7 @@ use App\Validators\UserValidator;
  *
  * @package namespace App\Repositories;
  */
-class UserRepositoryEloquent extends BaseRepository implements UserRepository
+final class UserRepositoryEloquent extends BaseRepository implements UserRepository
 {
     /**
      * Specify Model class name

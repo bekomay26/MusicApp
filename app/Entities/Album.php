@@ -11,16 +11,11 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Album extends Model implements Transformable
+final class Album extends Model implements Transformable
 {
     use TransformableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'description', 'image_url', 'artist_id'];
+    protected $casts = ['artist_id' => 'integer'];
 
     public $rules = [
         'name'            => 'required|string',
@@ -29,7 +24,12 @@ class Album extends Model implements Transformable
         'artist_id' => 'required|exists:users,id'
     ];
 
-    protected $casts = ['artist_id' => 'integer'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'image_url', 'artist_id'];
 
     /**
      * The relationships that should always be loaded.

@@ -11,16 +11,9 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Rating extends Model implements Transformable
+final class Rating extends Model implements Transformable
 {
     use TransformableTrait;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['score', 'comment', 'song_id', 'user_id'];
 
     public $rules = [
         'score'            => 'required|integer',
@@ -28,4 +21,11 @@ class Rating extends Model implements Transformable
         'song_id' => 'required|exists:songs,id',
         'user_id' => 'required|exists:users,id'
     ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['score', 'comment', 'song_id', 'user_id'];
 }

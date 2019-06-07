@@ -11,16 +11,11 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Song extends Model implements Transformable
+final class Song extends Model implements Transformable
 {
     use TransformableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'description', 'image_url', 'song_path', 'genre_id', 'album_id'];
+    protected $casts = ['adapter_type_id' => 'integer'];
 
     public $rules = [
         'name'            => 'required|string',
@@ -32,7 +27,12 @@ class Song extends Model implements Transformable
         // 'artist_id' => 'required|exists:users,id'
     ];
 
-    protected $casts = ['adapter_type_id' => 'integer'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'image_url', 'song_path', 'genre_id', 'album_id'];
 
 
     public function ratings()

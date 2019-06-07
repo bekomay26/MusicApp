@@ -11,6 +11,7 @@ use App\Http\Requests\FavoriteCreateRequest;
 use App\Http\Requests\FavoriteUpdateRequest;
 use App\Repositories\FavoriteRepository;
 use App\Validators\FavoriteValidator;
+use Illuminate\Http\Response;
 
 /**
  * Class FavoritesController.
@@ -44,11 +45,11 @@ class FavoritesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $this->repository->pushCriteria(app(\Prettus\Repository\Criteria\RequestCriteria::class));
         $favorites = $this->repository->all();
 
         if (request()->wantsJson()) {
@@ -68,7 +69,7 @@ class FavoritesController extends Controller
      *
      * @return \Illuminate\Http\Response
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function store(FavoriteCreateRequest $request)
     {
@@ -95,15 +96,15 @@ class FavoritesController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 
@@ -150,7 +151,7 @@ class FavoritesController extends Controller
      *
      * @return Response
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function update(FavoriteUpdateRequest $request, $id)
     {
@@ -171,17 +172,17 @@ class FavoritesController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
 
             if ($request->wantsJson()) {
 
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 

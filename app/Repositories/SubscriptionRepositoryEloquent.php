@@ -13,7 +13,7 @@ use App\Validators\SubscriptionValidator;
  *
  * @package namespace App\Repositories;
  */
-class SubscriptionRepositoryEloquent extends BaseRepository implements SubscriptionRepository
+final class SubscriptionRepositoryEloquent extends BaseRepository implements SubscriptionRepository
 {
     /**
      * Specify Model class name

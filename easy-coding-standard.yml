@@ -1,0 +1,41 @@
+imports:
+    - { resource: '%current_working_dir%/vendor/symplify/coding-standard/config/symplify.yml' }
+services:
+    PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer:
+        syntax: short
+    Symplify\CodingStandard\Sniffs\Commenting\AnnotationTypeExistsSniff: ~
+parameters:
+    exclude_files:
+        - "config/*"
+        - "bootstrap/*"
+        - "database/*"
+        - "*/node_modules/*"
+        - "vendor/*"
+        - "*/tests/**/Example*.php"
+        - "app/**/Kernel.php"
+        - "app/**/Handler.php"
+        - "app/**/Controller.php"
+        - "app/User.php"
+        - "app/Http/Controllers/*"
+        - "app/Presenters/*"
+        - "app/Transformers/*"
+        - "app/Http/Middleware/*"
+        - "app/Providers/*ServiceProvider.php"
+        - "resources/*"
+        - "storage/*"
+        - "public/*"
+    skip:
+        SlamCsFixer\FinalInternalClassFixer: ~
+            - "app/Providers/*"
+        Symplify\CodingStandard\Sniffs\Architecture\DuplicatedClassShortNameSniff: ~
+            - "vendor/*"
+        Symplify\CodingStandard\Sniffs\Naming\InterfaceNameSniff: ~
+            - "app/Contracts/Repositories/*"
+        Symplify\CodingStandard\Sniffs\Naming\ClassNameSuffixByParentSniff: ~
+            - "app/Repositories/*"
+        Symplify\CodingStandard\Fixer\Commenting\ParamReturnAndVarTagMalformsFixer: ~
+            - "app/Http/Controllers/*"
+        Symplify\CodingStandard\Fixer\Naming\PropertyNameMatchingTypeFixer: ~
+            - "app/Http/Controllers/*"
+        Symplify\CodingStandard\Sniffs\DependencyInjection\NoClassInstantiationSniff: ~
+            - "app/Http/Requests/UserRequest"

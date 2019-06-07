@@ -13,7 +13,7 @@ use App\Validators\AlbumValidator;
  *
  * @package namespace App\Repositories;
  */
-class AlbumRepositoryEloquent extends BaseRepository implements AlbumRepository
+final class AlbumRepositoryEloquent extends BaseRepository implements AlbumRepository
 {
     /**
      * Specify Model class name

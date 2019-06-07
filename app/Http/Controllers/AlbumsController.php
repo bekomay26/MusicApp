@@ -13,6 +13,7 @@ use App\Repositories\AlbumRepository;
 use App\Validators\AlbumValidator;
 
 use App\Entities\Song;
+use Illuminate\Http\Response;
 
 /**
  * Class AlbumsController.
@@ -46,11 +47,11 @@ class AlbumsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $this->repository->pushCriteria(app(\Prettus\Repository\Criteria\RequestCriteria::class));
         $albums = $this->repository->all();
 
         if (request()->wantsJson()) {
@@ -68,9 +69,9 @@ class AlbumsController extends Controller
      *
      * @param  AlbumCreateRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function store(AlbumCreateRequest $request)
     {
@@ -93,15 +94,15 @@ class AlbumsController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 
@@ -110,7 +111,7 @@ class AlbumsController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -131,7 +132,7 @@ class AlbumsController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -148,7 +149,7 @@ class AlbumsController extends Controller
      *
      * @return Response
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function update(AlbumUpdateRequest $request, $id)
     {
@@ -169,17 +170,17 @@ class AlbumsController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
 
             if ($request->wantsJson()) {
 
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 
@@ -191,7 +192,7 @@ class AlbumsController extends Controller
      *
      * @return Response
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function addSongs(AlbumUpdateRequest $request, $id)
     {
@@ -219,17 +220,17 @@ class AlbumsController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
 
             if ($request->wantsJson()) {
 
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 
@@ -240,7 +241,7 @@ class AlbumsController extends Controller
      *
      * @param  int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

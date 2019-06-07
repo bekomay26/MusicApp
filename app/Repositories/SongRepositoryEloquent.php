@@ -13,7 +13,7 @@ use App\Validators\SongValidator;
  *
  * @package namespace App\Repositories;
  */
-class SongRepositoryEloquent extends BaseRepository implements SongRepository
+final class SongRepositoryEloquent extends BaseRepository implements SongRepository
 {
     /**
      * Specify Model class name

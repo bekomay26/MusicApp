@@ -13,7 +13,7 @@ use App\Validators\PlaylistValidator;
  *
  * @package namespace App\Repositories;
  */
-class PlaylistRepositoryEloquent extends BaseRepository implements PlaylistRepository
+final class PlaylistRepositoryEloquent extends BaseRepository implements PlaylistRepository
 {
     /**
      * Specify Model class name

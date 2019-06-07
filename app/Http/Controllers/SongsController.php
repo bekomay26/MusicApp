@@ -50,7 +50,7 @@ class SongsController extends Controller
      */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $this->repository->pushCriteria(app(\Prettus\Repository\Criteria\RequestCriteria::class));
         $songs = $this->repository->all();
 
         if (request()->wantsJson()) {
@@ -94,15 +94,15 @@ class SongsController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 
@@ -196,17 +196,17 @@ class SongsController extends Controller
             }
 
             return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
+        } catch (ValidatorException $validatorException) {
 
             if ($request->wantsJson()) {
 
                 return response()->json([
                     'error'   => true,
-                    'message' => $e->getMessageBag()
+                    'message' => $validatorException->getMessageBag()
                 ]);
             }
 
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
         }
     }
 

@@ -13,7 +13,7 @@ use App\Validators\RatingValidator;
  *
  * @package namespace App\Repositories;
  */
-class RatingRepositoryEloquent extends BaseRepository implements RatingRepository
+final class RatingRepositoryEloquent extends BaseRepository implements RatingRepository
 {
     /**
      * Specify Model class name

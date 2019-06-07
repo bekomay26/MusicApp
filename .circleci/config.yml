@@ -14,6 +14,7 @@ executors:
       - image: circleci/postgres:9.5-alpine-postgis-ram
         environment:
             POSTGRES_USER: root
+            CC_TEST_REPORTER_ID: 5fef8fded8deb17f03c2f8f7f37f313e172072f34e42d0c2138a8dc3e9e3617c
     working_directory:  ~/music
 jobs:
   build_project:
@@ -81,7 +82,7 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://127.0.0.1:5432 -timeout 2m
       - run: 
-          name: Run LMS_Music Tests
+          name: Run Tests
           command: |
             ./cc-test-reporter before-build
             ./vendor/bin/phpunit --coverage-clover clover.xml

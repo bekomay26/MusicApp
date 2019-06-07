@@ -11,9 +11,14 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Genre extends Model implements Transformable
+final class Genre extends Model implements Transformable
 {
     use TransformableTrait;
+
+    public $rules = [
+        'name'                  => 'required|string',
+        'description'           => 'required|string'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,11 +26,6 @@ class Genre extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['name', 'description'];
-
-    public $rules = [
-        'name'                  => 'required|string',
-        'description'           => 'required|string'
-    ];
 
     /**
      * The relationships that should always be loaded.

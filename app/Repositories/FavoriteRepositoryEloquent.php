@@ -13,7 +13,7 @@ use App\Validators\FavoriteValidator;
  *
  * @package namespace App\Repositories;
  */
-class FavoriteRepositoryEloquent extends BaseRepository implements FavoriteRepository
+final class FavoriteRepositoryEloquent extends BaseRepository implements FavoriteRepository
 {
     /**
      * Specify Model class name

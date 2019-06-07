@@ -11,9 +11,19 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Favorite extends Model implements Transformable
+final class Favorite extends Model implements Transformable
 {
     use TransformableTrait;
+
+    protected $casts = [
+        'user_id' => 'integer',
+        'song_id' => 'integer'
+    ];
+
+    public $rules = [
+        'user_id' => 'required|exists:users,id',
+        'song_id' => 'required|exists:songs,id'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -21,11 +31,4 @@ class Favorite extends Model implements Transformable
      * @var array
      */
     protected $fillable = ['user_id', 'song_id'];
-
-    public $rules = [
-        'user_id' => 'required|exists:users,id',
-        'song_id' => 'required|exists:songs,id'
-    ];
-
-    protected $casts = ['user_id' => 'integer', 'song_id' => 'integer'];
 }
