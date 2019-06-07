@@ -1,6 +1,8 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Entities\Song;
+use App\Entities\Album;
 use App\Entities\User;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
@@ -16,11 +18,11 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(Album::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'is_artiste' => 1,
+        'description' => $faker->name,
+        'image_url' => $faker->name,
+        'artist_id' => function(){ return factory(User::class)->create()->id;}
     ];
 });
