@@ -22,16 +22,23 @@
             <directory suffix=".php">./app</directory>
             <exclude>
                 <directory suffix=".php">./app/Entities/</directory>
-                <directory suffix=".php">./app/Http/Controllers/</directory>
+                <directory suffix=".php">./app/Http/Controllers/Auth/</directory>
                 <directory suffix=".php">./app/Http/Middleware/</directory>
                 <file>./app/User.php</file>
+                <file>./app/Http/Controllers/AlbumsController.php</file>
+                <file>./app/Http/Controllers/FavoritesController.php</file>
+                <file>./app/Http/Controllers/PlaylistsController.php</file>
+                <file>./app/Http/Controllers/RatingsController.php</file>
+                <file>./app/Http/Controllers/SongsController.php</file>
+                <file>./app/Http/Controllers/SubscriptionsController.php</file>
+                <file>./app/Http/Controllers/UserPlaylistsController.php</file>
+                <file>./app/Http/Controllers/UsersController.php</file>
                 <directory suffix=".php">./app/Http/Requests/</directory>
                 <directory suffix=".php">./app/Contracts/Repositories</directory>
                 <directory suffix=".php">./app/Repositories/</directory>
                 <directory suffix=".php">./app/Providers/</directory>
                 <directory suffix=".php">./app/Transformers/</directory>
                 <directory suffix=".php">./app/Presenters/</directory>
-                <directory suffix=".php">./app/Song/</directory>
                 <directory suffix=".php">./app/Validators/</directory>
                 <file>./app/Http/Kernel.php</file>
                 <file>./app/Console/Kernel.php</file>

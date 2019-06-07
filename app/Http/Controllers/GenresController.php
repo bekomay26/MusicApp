@@ -72,152 +72,17 @@ class GenresController extends Controller
      */
     public function store(GenreCreateRequest $request)
     {
-        try {
+       
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+        $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $genre = $this->repository->create($request->all());
+        $genre = $this->repository->create($request->all());
 
-            $response = [
-                'message' => 'Genre created.',
-                'data'    => $genre->toArray(),
-            ];
+        $response = [
+            'message' => 'Genre created.',
+            'data'    => $genre->toArray(),
+        ];
 
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $validatorException) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $validatorException->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $genre = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $genre,
-            ]);
-        }
-
-        return view('genres.show', compact('genre'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $genre = $this->repository->find($id);
-
-        return view('genres.edit', compact('genre'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  GenreUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function update(GenreUpdateRequest $request, $id)
-    {
-        try {
-
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
-            $genre = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Genre updated.',
-                'data'    => $genre->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $validatorException) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $validatorException->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($validatorException->getMessageBag())->withInput();
-        }
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $deleted = $this->repository->delete($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Genre deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Genre deleted.');
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function search()
-    {
-        // $field = request()->query('field');
-        $value = request()->query('value');
-
-        // $model = $this->repository->findByField($field, $value);
-        $model = $this->repository->findByField('name', $value);
-        // TODO: Maybe from model - format to show genre details and all the songs under it
-        return response()->json([
-            'data' => $model,
-        ]);
-    }
+        return response()->json($response);
+    }    
 }
