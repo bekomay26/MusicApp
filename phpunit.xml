@@ -33,6 +33,7 @@
                 <file>./app/Http/Controllers/SubscriptionsController.php</file>
                 <file>./app/Http/Controllers/UserPlaylistsController.php</file>
                 <file>./app/Http/Controllers/UsersController.php</file>
+                <file>./app/Http/Controllers/Controller.php</file>
                 <directory suffix=".php">./app/Http/Requests/</directory>
                 <directory suffix=".php">./app/Contracts/Repositories</directory>
                 <directory suffix=".php">./app/Repositories/</directory>

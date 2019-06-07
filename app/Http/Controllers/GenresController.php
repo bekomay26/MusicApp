@@ -42,26 +42,6 @@ class GenresController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $this->repository->pushCriteria(app(\Prettus\Repository\Criteria\RequestCriteria::class));
-        $genres = $this->repository->all();
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $genres,
-            ]);
-        }
-
-        return view('genres.index', compact('genres'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  GenreCreateRequest $request
