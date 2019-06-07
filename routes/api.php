@@ -26,7 +26,8 @@ Route::prefix('v1')->group(function () {
     Route::post('register', 'UsersController@register');
     Route::post('login', 'UsersController@login');
     Route::post('logout', 'UsersController@logout');
-    Route::get('logout', 'UsersController@logout');Route::post('ss', 'FavoritesController@store');
+    Route::get('logout', 'UsersController@logout');
+    Route::post('ss', 'FavoritesController@store');
     
 });
 
