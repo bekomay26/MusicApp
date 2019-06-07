@@ -37,17 +37,17 @@ class GenreTest extends ControllerTestCase
             'name' => $input['name']
         ]);
     }
-    /** @test */
-    function user_can_view_all_albums()
-    {
+    // /** @test */
+    // function user_can_view_all_albums()
+    // {
        
-        // Act
-        $response = $this->get($this->endpoint);
-        // Assert
-        $response->assertStatus(200);
-        $response->assertJsonFragment([
-            'name' => $this->album->name,
-            'description' => $this->album->description
-        ]);
-    }
+    //     // Act
+    //     $response = $this->get($this->endpoint);
+    //     // Assert
+    //     $response->assertStatus(200);
+    //     $response->assertJsonFragment([
+    //         'name' => $this->album->name,
+    //         'description' => $this->album->description
+    //     ]);
+    // }
 }
