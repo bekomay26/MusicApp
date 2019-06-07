@@ -1,0 +1,99 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2.1
+executors:
+  my-executor:
+    docker:
+      - image: edbizarro/gitlab-ci-pipeline-php:7.3
+        environment:
+          DB_CONNECTION: pgsql
+          DB_DATABASE: circle_test
+          DB_USERNAME: root
+      - image: circleci/postgres:9.5-alpine-postgis-ram
+        environment:
+            POSTGRES_USER: root
+    working_directory:  ~/music
+jobs:
+  build_project:
+    executor: my-executor
+    steps:
+      - checkout
+      - run: php -i
+      # Download and cache dependencies
+
+      # composer cache
+      - restore_cache:
+          keys:
+          # "composer.lock" can be used if it is committed to the repo
+          - v1-dependencies-{{ checksum "composer.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: composer update --no-interaction --no-progress --prefer-dist --optimize-autoloader --ignore-platform-reqs
+      
+   
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run: cp .env.testing .env
+      - run: php artisan key:generate
+      - run: php artisan config:cache
+
+      # node cache
+
+      - restore_cache:
+          keys:
+            - node-{{ checksum "package.json" }}
+      - run: npm update
+      - save_cache:
+          key: node-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+  lint:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: ~/music
+      - run: composer lint
+  
+  test_and_report:
+    executor: my-executor
+    steps:
+      - attach_workspace:
+          at: ~/music
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: install dockerize
+          command: curl -OL https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://127.0.0.1:5432 -timeout 2m
+      - run: 
+          name: Run LMS_Music Tests
+          command: |
+            ./cc-test-reporter before-build
+            ./vendor/bin/phpunit --coverage-clover clover.xml
+            ./cc-test-reporter after-build --coverage-input-type clover --exit-code $?
+workflows:
+  version: 2
+  run_tests:
+    jobs:
+      - build_project
+      - lint:
+          requires:
+            - build_project
+      - test_and_report:
+          requires:
+            - build_project
