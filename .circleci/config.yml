@@ -11,6 +11,7 @@ executors:
           DB_CONNECTION: pgsql
           DB_DATABASE: circle_test
           DB_USERNAME: root
+          CC_TEST_REPORTER_ID: 5fef8fded8deb17f03c2f8f7f37f313e172072f34e42d0c2138a8dc3e9e3617c
       - image: circleci/postgres:9.5-alpine-postgis-ram
         environment:
             POSTGRES_USER: root
@@ -64,6 +65,8 @@ jobs:
       - run: composer lint
   
   test_and_report:
+    environment:
+      CC_TEST_REPORTER_ID: 5fef8fded8deb17f03c2f8f7f37f313e172072f34e42d0c2138a8dc3e9e3617c
     executor: my-executor
     steps:
       - attach_workspace:
