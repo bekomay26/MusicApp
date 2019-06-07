@@ -7,6 +7,12 @@ A Music App Store API that will bring an upcoming artiste to the limelight
 - [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2352701).
 - [Heroku App](https://lms-music.herokuapp.com/).
 
+## Running Locally
+- run `composer install`
+- run `php artisan migrate`
+- signup with the register route(api/v1/register)
+- make requests to endpoints
+
 ## Features
 
 ### User
